@@ -1,5 +1,6 @@
 # Doploy
-The Docker approach to a reproducible deployment.
+Doploy is a Docker-based configuration tool that helps 
+deploy the backend of a web application in a faster and simpler way.
 
 ## Build 
 docker-compose build
