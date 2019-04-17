@@ -11,7 +11,6 @@ DBNAME = 'testdb'
 
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite3'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}'.format(
         user=DBUSER,
@@ -65,7 +64,7 @@ def home():
             db.session.commit()
             flash('Record was succesfully added')
             return redirect(url_for('home'))
-    return render_template('show_all.html', students=students.query.all())
+    return render_template('index.html', students=students.query.all())
 
 
 if __name__ == '__main__':
