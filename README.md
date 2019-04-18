@@ -13,7 +13,7 @@ one step, with the help of [Docker](https://www.docker.com/).
 - Doploy works as a blackbox. Background knowledge about Docker, Shell language, 
 or deployment techniques is not required.
 
-- [Interactive Doploy Tool](https://project.alan-zhufengxu.com/interactive-doploy) 
+- [Interactive Doploy Tool](https://project.alan-zhufengxu.com/interactive-doploy) (under construction) 
 will help you work out all the deployment problems.
 
 
