@@ -1,14 +1,21 @@
-version: "3"
+version: "3.7"
+
 services:
   app:
-    restart: always
+    restart: on-failure
     build: .
     ports:
-      - "4000:4000"
+      - 4000:4000
     links:
-      - localhost
+      - mongo
 
-  localhost:
+  mongo:
     image: mongo
+    restart: on-failure
+    volumes:
+      - mongo-data:/data/db
     ports:
-      - "27017:27017"
+      - 27017:27017
+
+volumes:
+  mongo-data:
