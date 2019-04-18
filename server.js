@@ -2,23 +2,21 @@ const express = require('express');
 const app = express();
 const mongodb = require('mongodb');
 
-const config = require('./db');
 const PORT = 4000;
 const client = mongodb.MongoClient;
 
-client.connect(config.DB, function(err, db) {
-    if(err) {
+client.connect("mongodb://localhost:27017/newdock", function (err, db) {
+    if (err) {
         console.log('database is not connected')
-    }
-    else {
+    } else {
         console.log('connected!!')
     }
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.json({"hello": "world"});
 });
 
-app.listen(PORT, function(){
-    console.log('Your node js server is running on PORT:',PORT);
+app.listen(PORT, function () {
+    console.log('Your node js server is running on PORT:', PORT);
 });
