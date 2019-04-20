@@ -5,7 +5,7 @@ const mongodb = require('mongodb');
 const PORT = 4000;
 const client = mongodb.MongoClient;
 
-client.connect("mongodb://localhost:27017/newdock", function (err, db) {
+client.connect("mongodb://mongo:27017/newdock", function (err, db) {
     if (err) {
         console.log('database is not connected')
     } else {
@@ -14,7 +14,7 @@ client.connect("mongodb://localhost:27017/newdock", function (err, db) {
 });
 
 app.get('/', function (req, res) {
-    res.json({"hello": "world"});
+    res.json({"hello": "world" + PORT});
 });
 
 app.listen(PORT, function () {

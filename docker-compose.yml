@@ -6,7 +6,7 @@ services:
     build: .
     ports:
       - 4000:4000
-    links:
+    depends_on:
       - mongo
 
   mongo:
@@ -14,8 +14,6 @@ services:
     restart: on-failure
     volumes:
       - mongo-data:/data/db
-    expose:
-      - 27017
 
 volumes:
   mongo-data:
