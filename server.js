@@ -14,7 +14,7 @@ client.connect("mongodb://mongo:27017/newdock", function (err, db) {
 });
 
 app.get('/', function (req, res) {
-    res.json({"hello": "world" + PORT});
+    res.json({"hello": "world"});
 });
 
 app.listen(PORT, function () {
