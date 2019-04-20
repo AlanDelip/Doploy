@@ -24,3 +24,4 @@ hs_err_pid*
 
 # jetbrains setting files
 .idea/
+node_modules/
