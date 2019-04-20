@@ -14,9 +14,6 @@ deploy the backend of a web application in a faster and simpler way.
 - Swagger2 HTTP API management(can be accessed at *localhost:8080/swagger-ui.html* in default)
 ![swagger](https://c1.staticflickr.com/5/4915/31726275207_42bb23af9c_h.jpg)
 
-- Code quality with SonarQube(can be accessed at *localhost:9000* in default)
-![sonar management](http://mooctest.oss-cn-shanghai.aliyuncs.com/resources/springboot-tmpl/sonar-management.png)
-
 ## Package Architecture
 > This project is using [Anemic Domain Model](https://martinfowler.com/bliki/AnemicDomainModel.html) and based on the IoC framework, 
 decoupling services and highly recommendable for team work.\

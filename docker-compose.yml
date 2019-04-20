@@ -2,9 +2,7 @@ version: '3.7'
 
 services:
   springboot:
-    build:
-      context: .
-      dockerfile: maven-dockerfile
+    build: .
     image: springboot
     ports:
       - 8080:8080
@@ -15,13 +13,9 @@ services:
         target: /root/.m2
       - type: bind
         source: ./
-        target: /root/springboot-template
-    links:
-      - database
-      - sonarqube
+        target: /home/app
     depends_on:
       - database
-      - sonarqube
 
   database:
     image: mysql
@@ -34,17 +28,6 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  sonarqube:
-    image: sonarqube
-    ports:
-      - 9000:9000
-    restart: on-failure
-    volumes:
-      - sonar-config:/opt/sonarqube/conf
-      - sonar-data:/opt/sonarqube/data
-
 volumes:
   mysql-data:
   maven-repo:
-  sonar-config:
-  sonar-data:

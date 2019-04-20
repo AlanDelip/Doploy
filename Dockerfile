@@ -3,8 +3,8 @@ FROM maven:3.6.0-jdk-8-alpine
 
 VOLUME /root/.m2
 
-WORKDIR /root/springboot-template
+WORKDIR /home/app
 
 EXPOSE 8080
 
-CMD sh tool/start-server.sh
+CMD ["sh","-c","mvn clean && mvn package && java -jar target/SpringBootTmpl-LATEST.jar"]

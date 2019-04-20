@@ -27,3 +27,6 @@ hs_err_pid*
 
 # maven compile files
 target/
+
+# others
+node_modules/
