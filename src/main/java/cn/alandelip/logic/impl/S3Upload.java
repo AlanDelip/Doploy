@@ -1,7 +1,6 @@
 package cn.alandelip.logic.impl;
 
 import cn.alandelip.config.S3PresignExecutionInterceptor;
-import cn.alandelip.web.model.TemplateVO;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;

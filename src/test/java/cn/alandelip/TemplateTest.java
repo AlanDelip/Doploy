@@ -3,6 +3,9 @@ package cn.alandelip;
 import cn.alandelip.logic.GeneratorLogic;
 import cn.alandelip.logic.impl.GeneratorLogicImpl;
 import cn.alandelip.web.model.ConfigurationVO;
+import cn.alandelip.web.model.TemplateVO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
 
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -29,15 +34,30 @@ public class TemplateTest {
 	}
 
 	@Test
-	public void test() {
+	public void testFlaskPostgre() {
 		ConfigurationVO configuration = new ConfigurationVO();
+		configuration.setType("FLASK_POSTGRESQL");
 		configuration.setEntry("entry");
 		configuration.setWorkdir("workdir");
 		configuration.setPort("8000");
-		configuration.setType("FLASK_POSTGRESQL");
-		configuration.setDbname("sample");
+		configuration.setDbname("testdb");
 		configuration.setDbpassword("12345");
 		configuration.setDbuser("root");
-		generatorLogic.generateTemplate(configuration);
+		configuration.setDbport("123");
+		List<TemplateVO> templates = generatorLogic.generateTemplate(configuration);
+		System.out.println(new GsonBuilder().disableHtmlEscaping().create().toJson(templates));
+	}
+
+	@Test
+	public void testExpressMongo(){
+		ConfigurationVO configuration = new ConfigurationVO();
+		configuration.setType("EXPRESS_MONGO");
+		configuration.setEntry("entry");
+		configuration.setWorkdir("workdir");
+		configuration.setPort("8000");
+		configuration.setDbname("testdb");
+		configuration.setDbport("123");
+		List<TemplateVO> templates = generatorLogic.generateTemplate(configuration);
+		System.out.println(new GsonBuilder().disableHtmlEscaping().create().toJson(templates));
 	}
 }

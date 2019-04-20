@@ -24,6 +24,7 @@ hs_err_pid*
 
 # jetbrains setting files
 .idea/
+node_modules/
 
 # maven compile files
 target/

@@ -45,11 +45,12 @@ public class GeneratorLogicImpl implements GeneratorLogic {
 				templateLogic = new FlaskPostgreTemplate();
 				break;
 			case EXPRESS_MONGO:
+				templateLogic = new ExpressMongoTemplate();
 				break;
 			case SPRING_MYSQL:
 				break;
 		}
 
-		return templateLogic.generateTemplate(configuration,cfg);
+		return templateLogic.generateTemplate(configuration, cfg);
 	}
 }

@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @author Alan.Zhufeng Xu, 4/18/2019.
+ * @author Alan.Zhufeng Xu, 4/19/2019.
  */
-public class FlaskPostgreTemplate implements TemplateLogic {
-	private static final String TEMPLATE_BASE = "flask-postgresql";
+public class ExpressMongoTemplate implements TemplateLogic {
+	private static final String TEMPLATE_BASE = "express-mongo";
 
 	@Override
 	public List<TemplateVO> generateTemplate(ConfigurationVO configuration, Configuration cfg) {
@@ -23,7 +23,6 @@ public class FlaskPostgreTemplate implements TemplateLogic {
 		try {
 			Template dfTmpl = cfg.getTemplate(TEMPLATE_BASE + "/dockerfile-tmpl.ftlh");
 			Map<String, String> dfRoot = new HashMap<>();
-			dfRoot.put("port", configuration.getPort());
 			dfRoot.put("entry", configuration.getEntry());
 			String key = signedTimestamp + "/Dockerfile";
 
@@ -34,32 +33,13 @@ public class FlaskPostgreTemplate implements TemplateLogic {
 			e.printStackTrace();
 		}
 
-		if (!configuration.getDbname().isEmpty()) {
-			try {
-
-				Template envTmpl = cfg.getTemplate(TEMPLATE_BASE + "/env-tmpl.ftlh");
-				Map<String, String> envRoot = new HashMap<>();
-				envRoot.put("dbname", configuration.getDbname());
-				envRoot.put("dbuser", configuration.getDbuser());
-				envRoot.put("dbpassword", configuration.getDbpassword());
-				String key = signedTimestamp + "/env";
-
-				String envUrl = S3Upload.upload(envRoot, envTmpl, key);
-				templates.add(new TemplateVO(envUrl, "env"));
-
-
-			} catch (IOException | SdkClientException e) {
-				e.printStackTrace();
-			}
-		}
-
 		try {
 			Template composeTmpl = cfg.getTemplate(TEMPLATE_BASE + "/compose-tmpl.ftlh");
 			Map<String, String> composeRoot = new HashMap<>();
 			composeRoot.put("dbname", configuration.getDbname());
+			composeRoot.put("dbport", configuration.getDbport());
 			composeRoot.put("workdir", configuration.getWorkdir());
 			composeRoot.put("port", configuration.getPort());
-			composeRoot.put("dbport", configuration.getDbport());
 			String key = signedTimestamp + "/docker-compose.yml";
 
 			String envUrl = S3Upload.upload(composeRoot, composeTmpl, key);
@@ -71,4 +51,5 @@ public class FlaskPostgreTemplate implements TemplateLogic {
 
 		return templates;
 	}
+
 }

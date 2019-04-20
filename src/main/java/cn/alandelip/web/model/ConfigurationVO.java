@@ -10,11 +10,15 @@ import lombok.Data;
  */
 @Data
 public class ConfigurationVO {
+	String type;
+
 	String dbuser;
 	String dbname;
 	String dbpassword;
-	String type;
+	String dbport;
+
 	String workdir;
 	String entry;
 	String port;
+
 }
