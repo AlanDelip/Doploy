@@ -3,12 +3,11 @@ import json
 from flask import Flask, flash, redirect, request, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-DBUSER = 'marco'
-DBPASS = 'foobarbaz'
+DBNAME = 'doploy'
+DBUSER = 'testuser'
+DBPASS = 'testpass'
 DBHOST = 'db'
 DBPORT = '5432'
-DBNAME = 'testdb'
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -19,8 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
         port=DBPORT,
         db=DBNAME)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'foobarbaz'
-
+app.secret_key = 'doploy'
 
 db = SQLAlchemy(app)
 
@@ -36,12 +34,13 @@ class students(db.Model):
         self.city = city
         self.addr = addr
 
+
 def database_initialization_sequence():
     db.create_all()
     test_rec = students(
-            'John Doe',
-            'Los Angeles',
-            '123 Foobar Ave')
+        'John Doe',
+        'Los Angeles',
+        '123 Foobar Ave')
 
     db.session.add(test_rec)
     db.session.rollback()
@@ -55,9 +54,9 @@ def home():
             flash('Please enter all the fields', 'error')
         else:
             student = students(
-                    request.form['name'],
-                    request.form['city'],
-                    request.form['addr'])
+                request.form['name'],
+                request.form['city'],
+                request.form['addr'])
 
             db.session.add(student)
             db.session.commit()
@@ -66,7 +65,7 @@ def home():
     result = students.query.all()
     all_rows = []
     for row in result:
-        new_row= {"name": row.name, "city":row.city, "addr": row.addr}
+        new_row = {"name": row.name, "city": row.city, "addr": row.addr}
         all_rows.append(new_row)
     return json.dumps(all_rows), 200
 

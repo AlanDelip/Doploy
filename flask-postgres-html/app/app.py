@@ -2,13 +2,11 @@ import time
 from flask import Flask, render_template, flash, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-
-DBUSER = 'marco'
-DBPASS = 'foobarbaz'
+DBNAME = 'doploy'
+DBUSER = 'testuser'
+DBPASS = 'testpass'
 DBHOST = 'db'
 DBPORT = '5432'
-DBNAME = 'testdb'
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -19,8 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
         port=DBPORT,
         db=DBNAME)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'foobarbaz'
-
+app.secret_key = 'doploy'
 
 db = SQLAlchemy(app)
 
@@ -40,9 +37,9 @@ class students(db.Model):
 def database_initialization_sequence():
     db.create_all()
     test_rec = students(
-            'John Doe',
-            'Los Angeles',
-            '123 Foobar Ave')
+        'John Doe',
+        'Los Angeles',
+        '123 Foobar Ave')
 
     db.session.add(test_rec)
     db.session.rollback()
@@ -56,9 +53,9 @@ def home():
             flash('Please enter all the fields', 'error')
         else:
             student = students(
-                    request.form['name'],
-                    request.form['city'],
-                    request.form['addr'])
+                request.form['name'],
+                request.form['city'],
+                request.form['addr'])
 
             db.session.add(student)
             db.session.commit()
