@@ -12,13 +12,21 @@ import lombok.Data;
 public class ConfigurationVO {
 	String type;
 
+	// database configurations
 	String dbuser;
 	String dbname;
 	String dbpassword;
 	String dbport;
+	// mysql root password
+	String dbrootpass;
 
+	// framework configurations
 	String workdir;
 	String entry;
 	String port;
+
+	// maven project configurations
+	String artifactId;
+	String version;
 
 }

@@ -49,7 +49,7 @@ public class TemplateTest {
 	}
 
 	@Test
-	public void testExpressMongo(){
+	public void testExpressMongo() {
 		ConfigurationVO configuration = new ConfigurationVO();
 		configuration.setType("EXPRESS_MONGO");
 		configuration.setEntry("entry");
@@ -57,6 +57,22 @@ public class TemplateTest {
 		configuration.setPort("8000");
 		configuration.setDbname("testdb");
 		configuration.setDbport("123");
+		List<TemplateVO> templates = generatorLogic.generateTemplate(configuration);
+		System.out.println(new GsonBuilder().disableHtmlEscaping().create().toJson(templates));
+	}
+
+	@Test
+	public void testSpringMySQL() {
+		ConfigurationVO configuration = new ConfigurationVO();
+		configuration.setType("SPRING_MYSQL");
+		configuration.setArtifactId("springboot");
+		configuration.setVersion("LATEST");
+		configuration.setPort("8000");
+		configuration.setDbname("testdb");
+		configuration.setDbport("3306");
+//		configuration.setDbuser("doploy");
+//		configuration.setDbpassword("doploy");
+		configuration.setDbrootpass("root");
 		List<TemplateVO> templates = generatorLogic.generateTemplate(configuration);
 		System.out.println(new GsonBuilder().disableHtmlEscaping().create().toJson(templates));
 	}

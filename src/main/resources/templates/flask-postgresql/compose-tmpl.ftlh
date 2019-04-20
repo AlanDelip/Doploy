@@ -13,7 +13,10 @@ services:
 
     localhost:
         image: postgres:10
-        env_file: env
+        environment:
+            POSTGRES_DB: ${dbname}
+            POSTGRES_USER: ${dbuser}
+            POSTGRES_PASSWORD: ${dbpass}
         volumes:
             - pg-data:/var/lib/postgresql/data
     <#if dbport??>

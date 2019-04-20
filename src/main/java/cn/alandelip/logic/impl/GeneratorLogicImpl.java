@@ -1,6 +1,7 @@
 package cn.alandelip.logic.impl;
 
 import cn.alandelip.entity.GeneratorData;
+import cn.alandelip.exception.NotFoundException;
 import cn.alandelip.logic.GeneratorLogic;
 import cn.alandelip.logic.TemplateLogic;
 import cn.alandelip.web.model.ConfigurationVO;
@@ -8,6 +9,7 @@ import cn.alandelip.web.model.TemplateVO;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,6 @@ import java.util.List;
 @Log4j2
 public class GeneratorLogicImpl implements GeneratorLogic {
 	private Configuration cfg;
-	private TemplateLogic templateLogic;
 
 	@Autowired
 	public GeneratorLogicImpl() {
@@ -40,6 +41,8 @@ public class GeneratorLogicImpl implements GeneratorLogic {
 
 	@Override
 	public List<TemplateVO> generateTemplate(ConfigurationVO configuration) {
+		TemplateLogic templateLogic;
+
 		switch (GeneratorData.Type.valueOf(configuration.getType().toUpperCase())) {
 			case FLASK_POSTGRESQL:
 				templateLogic = new FlaskPostgreTemplate();
@@ -48,7 +51,10 @@ public class GeneratorLogicImpl implements GeneratorLogic {
 				templateLogic = new ExpressMongoTemplate();
 				break;
 			case SPRING_MYSQL:
+				templateLogic = new SpringMysqlTemplate();
 				break;
+			default:
+				throw new NotFoundException("template not found");
 		}
 
 		return templateLogic.generateTemplate(configuration, cfg);
