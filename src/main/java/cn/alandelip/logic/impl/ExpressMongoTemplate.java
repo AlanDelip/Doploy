@@ -38,7 +38,6 @@ public class ExpressMongoTemplate implements TemplateLogic {
 			Map<String, String> composeRoot = new HashMap<>();
 			composeRoot.put("dbname", configuration.getDbname());
 			composeRoot.put("dbport", configuration.getDbport());
-			composeRoot.put("workdir", configuration.getWorkdir());
 			composeRoot.put("port", configuration.getPort());
 			String key = signedTimestamp + "/docker-compose.yml";
 

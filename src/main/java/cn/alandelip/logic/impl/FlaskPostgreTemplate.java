@@ -41,7 +41,6 @@ public class FlaskPostgreTemplate implements TemplateLogic {
 			composeRoot.put("dbuser", configuration.getDbuser());
 			composeRoot.put("dbpass", configuration.getDbpassword());
 			composeRoot.put("dbport", configuration.getDbport());
-			composeRoot.put("workdir", configuration.getWorkdir());
 			composeRoot.put("port", configuration.getPort());
 			String key = signedTimestamp + "/docker-compose.yml";
 

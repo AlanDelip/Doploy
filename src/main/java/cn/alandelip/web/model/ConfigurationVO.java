@@ -21,7 +21,6 @@ public class ConfigurationVO {
 	String dbrootpass;
 
 	// framework configurations
-	String workdir;
 	String entry;
 	String port;
 

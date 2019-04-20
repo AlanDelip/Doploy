@@ -6,7 +6,7 @@ services:
         ports:
             - ${port}:5000
         volumes:
-            - ./${workdir}:/home/app
+            - ./:/home/app
 <#if dbname??>
     depends_on:
         - localhost

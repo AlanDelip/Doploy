@@ -38,7 +38,6 @@ public class TemplateTest {
 		ConfigurationVO configuration = new ConfigurationVO();
 		configuration.setType("FLASK_POSTGRESQL");
 		configuration.setEntry("entry");
-		configuration.setWorkdir("workdir");
 		configuration.setPort("8000");
 		configuration.setDbname("testdb");
 		configuration.setDbpassword("12345");
@@ -53,7 +52,6 @@ public class TemplateTest {
 		ConfigurationVO configuration = new ConfigurationVO();
 		configuration.setType("EXPRESS_MONGO");
 		configuration.setEntry("entry");
-		configuration.setWorkdir("workdir");
 		configuration.setPort("8000");
 		configuration.setDbname("testdb");
 		configuration.setDbport("123");
