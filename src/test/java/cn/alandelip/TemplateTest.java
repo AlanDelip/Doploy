@@ -43,6 +43,7 @@ public class TemplateTest {
 		configuration.setDbpassword("12345");
 		configuration.setDbuser("root");
 		configuration.setDbport("123");
+//		configuration.setDependencies("numpy pandas");
 		List<TemplateVO> templates = generatorLogic.generateTemplate(configuration);
 		System.out.println(new GsonBuilder().disableHtmlEscaping().create().toJson(templates));
 	}

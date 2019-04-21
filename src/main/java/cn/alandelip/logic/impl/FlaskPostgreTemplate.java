@@ -25,6 +25,7 @@ public class FlaskPostgreTemplate implements TemplateLogic {
 			Map<String, String> dfRoot = new HashMap<>();
 			dfRoot.put("port", configuration.getPort());
 			dfRoot.put("entry", configuration.getEntry());
+			dfRoot.put("dependencies", configuration.getDependencies());
 			String key = signedTimestamp + "/Dockerfile";
 
 			String envUrl = S3Upload.upload(dfRoot, dfTmpl, key);

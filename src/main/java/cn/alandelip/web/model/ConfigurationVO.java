@@ -23,6 +23,8 @@ public class ConfigurationVO {
 	// framework configurations
 	String entry;
 	String port;
+	// python dependencies(since python's dependencies are not defined in a exterior file, we have to install them in prior)
+	String dependencies;
 
 	// maven project configurations
 	String artifactId;
