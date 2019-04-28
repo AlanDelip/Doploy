@@ -1,33 +1,17 @@
-from typing import List, Dict
-from flask import Flask
-import mysql.connector
-import json
+import os, json
+from flask import Flask, redirect, url_for, request, render_template, jsonify, Response
+from bson import json_util
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
-
-def students() -> List[Dict]:
-    config = {
-        'user': 'root',
-        'password': 'root',
-        'host': 'db',
-        'port': '3306',
-        'database': 'userdb'
-    }
-    connection = mysql.connector.connect(**config)
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM students')
-    results = [{name: city} for (name, city) in cursor]
-    cursor.close()
-    connection.close()
-
-    return results
-
+client = MongoClient(os.environ['DB_PORT_27017_TCP_ADDR'],27017)
 
 @app.route('/')
-def index() -> str:
-    return json.dumps({'students': students()})
+@app.route('/index')
+@app.route('/home')
+def home():
+    return 'Hello World!'
 
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)

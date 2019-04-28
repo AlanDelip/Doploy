@@ -1,20 +1,11 @@
-version: "3"
-
-services:
-  app:
-    build: .
-    volumes:
-      - ./:/app
-    links:
-      - db
-    ports:
-      - "5000:5000"
-
-  db:
-    image: mysql:5.7
-    ports:
-      - "32000:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
+api:
+  build: .
+  ports:
+    - "5000:5000"
+  volumes:
+    - ./:/home/app
+  links:
+    - db
+db:
+  image: mongo:3.0.2
+  command: "--smallfiles"

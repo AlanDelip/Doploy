@@ -1,9 +1,7 @@
 FROM python:3.6
 
-EXPOSE 5000
+WORKDIR /home/app
 
-WORKDIR /app
-
-RUN pip install Flask mysql-connector
+RUN pip install flask pymongo
 
 CMD python app/app.py
