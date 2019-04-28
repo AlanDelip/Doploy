@@ -4,7 +4,7 @@ deploy the backend of a web application in a faster and simpler way.
 
 ## docker-flask-mysql
 
-This is a simple demo for how to connect to a Postgres database from a python flask application. To run this on your computer you must first install [docker](https://docs.docker.com/engine/installation/).
+This is a simple demo for how to connect to a Mongodb database from a python flask application. To run this on your computer you must first install [docker](https://docs.docker.com/engine/installation/).
 
 ## Running
 
