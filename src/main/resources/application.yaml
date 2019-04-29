@@ -30,7 +30,7 @@ swagger:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/alansite?useSSL=false
+    url: jdbc:mysql://localhost:3306/alansite?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: doploy
     password: doploy
 
