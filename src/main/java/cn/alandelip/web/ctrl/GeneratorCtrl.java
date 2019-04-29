@@ -17,6 +17,7 @@ import java.util.List;
  *
  * @author Alan on 2017/3/14
  */
+@RequestMapping(value = "generator")
 @RestController
 @Log4j2
 public class GeneratorCtrl {
