@@ -30,12 +30,12 @@ swagger:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/sample?useSSL=false
-    username: local
-    password: local
+    url: jdbc:mysql://localhost:3306/doploy?useSSL=false
+    username: doploy
+    password: doploy
 
 server:
-  port: 8080
+  port: 8090
 
 spring.jpa.show-sql: true
 springfox.documentation.swagger.v2.path: /api-docs

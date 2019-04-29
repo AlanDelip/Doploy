@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.alandelip</groupId>
-    <artifactId>SpringBootTmpl</artifactId>
+    <artifactId>Doploy</artifactId>
     <version>LATEST</version>
     <properties>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
