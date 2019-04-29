@@ -17,4 +17,4 @@ mvn clean
 mvn package
 
 # deploy
-screen java -jar -Dspring.profiles.active=$profile target/Doploy-LATEST.jar > run.log &
+java -jar -Dspring.profiles.active=$profile target/Doploy-LATEST.jar > run.log &
