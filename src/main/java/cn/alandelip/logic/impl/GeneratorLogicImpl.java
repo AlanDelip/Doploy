@@ -9,7 +9,6 @@ import cn.alandelip.web.model.TemplateVO;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,10 +46,10 @@ public class GeneratorLogicImpl implements GeneratorLogic {
 			case FLASK_POSTGRESQL:
 				templateLogic = new FlaskPostgreTemplate();
 				break;
-			case EXPRESS_MONGO:
+			case EXPRESS_MONGODB:
 				templateLogic = new ExpressMongoTemplate();
 				break;
-			case SPRING_MYSQL:
+			case SPRINGBOOT_MYSQL:
 				templateLogic = new SpringMysqlTemplate();
 				break;
 			default:

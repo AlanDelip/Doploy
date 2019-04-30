@@ -51,7 +51,7 @@ public class TemplateTest {
 	@Test
 	public void testExpressMongo() {
 		ConfigurationVO configuration = new ConfigurationVO();
-		configuration.setType("EXPRESS_MONGO");
+		configuration.setType("EXPRESS_MONGODB");
 		configuration.setEntry("entry");
 		configuration.setPort("8000");
 		configuration.setDbname("testdb");
@@ -63,7 +63,7 @@ public class TemplateTest {
 	@Test
 	public void testSpringMySQL() {
 		ConfigurationVO configuration = new ConfigurationVO();
-		configuration.setType("SPRING_MYSQL");
+		configuration.setType("SPRINGBOOT_MYSQL");
 		configuration.setArtifactId("springboot");
 		configuration.setVersion("LATEST");
 		configuration.setPort("8000");
