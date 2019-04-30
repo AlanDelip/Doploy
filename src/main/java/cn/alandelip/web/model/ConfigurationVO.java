@@ -17,6 +17,7 @@ public class ConfigurationVO {
 	String dbname;
 	String dbpassword;
 	String dbport;
+	String dbhost;
 	// mysql root password
 	String dbrootpass;
 

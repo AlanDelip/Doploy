@@ -43,6 +43,7 @@ public class FlaskPostgreTemplate implements TemplateLogic {
 			composeRoot.put("dbpass", configuration.getDbpassword());
 			composeRoot.put("dbport", configuration.getDbport());
 			composeRoot.put("port", configuration.getPort());
+			composeRoot.put("dbhost", configuration.getDbhost());
 			String key = signedTimestamp + "/docker-compose.yml";
 
 			String envUrl = S3Upload.upload(composeRoot, composeTmpl, key);

@@ -9,9 +9,9 @@ services:
             - ./:/home/app
 <#if dbname??>
     depends_on:
-        - localhost
+        - ${dbhost}
 
-    localhost:
+    ${dbhost}:
         image: postgres:10
         environment:
             POSTGRES_DB: ${dbname}
