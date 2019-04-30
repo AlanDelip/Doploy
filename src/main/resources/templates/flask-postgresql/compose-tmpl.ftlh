@@ -8,8 +8,8 @@ services:
         volumes:
             - ./:/home/app
 <#if dbname??>
-    depends_on:
-        - ${dbhost}
+        depends_on:
+            - ${dbhost}
 
     ${dbhost}:
         image: postgres:10
