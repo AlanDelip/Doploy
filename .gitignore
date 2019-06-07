@@ -28,3 +28,5 @@ node_modules/
 
 # maven compile files
 target/
+
+*.iml

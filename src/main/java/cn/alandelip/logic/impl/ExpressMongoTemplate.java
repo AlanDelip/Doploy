@@ -14,7 +14,7 @@ import java.util.*;
  * @author Alan.Zhufeng Xu, 4/19/2019.
  */
 public class ExpressMongoTemplate implements TemplateLogic {
-	private static final String TEMPLATE_BASE = "express-mongo";
+	private static final String TEMPLATE_BASE = "express-mongodb";
 
 	@Override
 	public List<TemplateVO> generateTemplate(ConfigurationVO configuration, Configuration cfg) {
