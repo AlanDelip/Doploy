@@ -1,9 +1,9 @@
-FROM python:3.6
+FROM python:3.7
 
 EXPOSE 5000
 
-WORKDIR /app
+WORKDIR /home/app
 
-RUN pip install Flask mysql-connector
+RUN pip install flask mysql-connector
 
 CMD python app/app.py

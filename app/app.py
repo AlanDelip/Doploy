@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 def students() -> List[Dict]:
     config = {
-        'user': 'root',
-        'password': 'root',
+        'user': 'test',
+        'password': 'test',
         'host': 'db',
         'port': '3306',
         'database': 'userdb'
