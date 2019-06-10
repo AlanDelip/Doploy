@@ -1,20 +1,24 @@
 const express = require('express');
 const app = express();
-const mongodb = require('mongodb');
 
 const PORT = 4000;
-const client = mongodb.MongoClient;
 
-client.connect("mongodb://mongo:27017/newdock", function (err, db) {
-    if (err) {
-        console.log('database is not connected')
-    } else {
-        console.log('connected!!')
-    }
+const Pool = require('pg').Pool;
+const pool = new Pool({
+    user: 'testuser',
+    password: 'testpass',
+    host: 'db',
+    database: 'doploy',
+    port: 5432
 });
 
 app.get('/', function (req, res) {
-    res.json({"hello": "world"});
+    pool.query('SELECT * FROM users', (error, results) => {
+        if (error) {
+            throw error
+        }
+        res.status(200).json(results.rows)
+    })
 });
 
 app.listen(PORT, function () {

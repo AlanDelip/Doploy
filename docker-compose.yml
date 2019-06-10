@@ -9,13 +9,22 @@ services:
     ports:
       - 4000:4000
     depends_on:
-      - mongo
+      - db
 
-  mongo:
-    image: mongo
+  db:
+    image: postgres:11
     restart: on-failure
+    environment:
+      POSTGRES_DB: doploy
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
     volumes:
-      - mongo-data:/data/db
+      - type: volume
+        source: pg-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./
+        target: /docker-entrypoint-initdb.d/
 
 volumes:
-  mongo-data:
+  pg-data:
