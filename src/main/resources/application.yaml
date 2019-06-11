@@ -3,9 +3,6 @@ spring.profiles.active: dev
 
 # general configuration
 spring:
-  datasource:
-    driver-class-name:  com.mysql.cj.jdbc.Driver
-
   # Show or not log for each sql query
   jpa:
     show-sql: true
@@ -30,9 +27,9 @@ swagger:
 spring:
   profile: dev
   datasource:
-    url: jdbc:mysql://database:3306/sample?useSSL=false&allowPublicKeyRetrieval=true
-    username: container
-    password: container
+    url: jdbc:postgresql://db:5432/doploy
+    username: test
+    password: test
 
 server:
   port: 8080
