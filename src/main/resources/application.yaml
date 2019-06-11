@@ -26,10 +26,13 @@ swagger:
 ---
 spring:
   profile: dev
-  datasource:
-    url: jdbc:postgresql://db:5432/doploy
-    username: test
-    password: test
+  data:
+    mongodb:
+      host: db
+      port: 27017
+      username: test
+      password: test
+      database: doploy
 
 server:
   port: 8080
