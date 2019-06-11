@@ -15,23 +15,19 @@ services:
         source: ./
         target: /home/app
     depends_on:
-      - db
+      - database
 
-  db:
-    image: postgres:11
-    restart: on-failure
+  database:
+    image: mysql
     environment:
-      POSTGRES_DB: doploy
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
+      MYSQL_DATABASE: sample
+      MYSQL_USER: container
+      MYSQL_PASSWORD: container
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    restart: on-failure
     volumes:
-      - type: volume
-        source: pg-data
-        target: /var/lib/postgresql/data
-      - type: bind
-        source: ./db
-        target: /docker-entrypoint-initdb.d/
+      - mysql-data:/var/lib/mysql
 
 volumes:
-  pg-data:
+  mysql-data:
   maven-repo:
