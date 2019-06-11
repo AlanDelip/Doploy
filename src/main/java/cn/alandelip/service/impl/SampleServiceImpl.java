@@ -8,7 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Alan on 2017/3/14
@@ -17,45 +19,54 @@ import java.util.List;
 @Log4j2
 public class SampleServiceImpl implements SampleService {
 
-	private SampleDao sampleDao;
+    private SampleDao sampleDao;
 
-	@Autowired
-	public SampleServiceImpl(SampleDao sampleDao) {
-		this.sampleDao = sampleDao;
-	}
+    @Autowired
+    public SampleServiceImpl(SampleDao sampleDao) {
+        this.sampleDao = sampleDao;
+    }
 
-	@Override
-	public SampleData getSample(long id) {
-		return sampleDao.getOne(id);
-	}
+    @Override
+    public SampleData getSample(long id) {
+        Optional<SampleData> data = sampleDao.findById(id);
+        if (data == null || !data.isPresent()) {
+            return null;
+        } else {
+            return data.get();
+        }
+    }
 
-	@Override
-	public Boolean save(String name, String detail) {
-		SampleData sampleData = new SampleData();
-		sampleData.setName(name);
-		sampleData.setDetail(detail);
-		return sampleDao.save(sampleData) != null;
-	}
+    @Override
+    public Boolean save(String name, String detail) {
+        SampleData sampleData = new SampleData();
+        sampleData.setName(name);
+        sampleData.setDetail(detail);
+        sampleData.setId(new Date().getTime());
+        return sampleDao.save(sampleData) != null;
+    }
 
-	@Override
-	public Boolean put(long id, String name, String detail) {
-		SampleData sampleData = sampleDao.getOne(id);
-		if (sampleData != null) {
-			sampleData.setName(name);
-			sampleData.setDetail(detail);
-			return sampleDao.save(sampleData) != null;
-		}
-		return false;
-	}
+    @Override
+    public Boolean put(long id, String name, String detail) {
+        SampleData sampleData;
+        Optional<SampleData> data = sampleDao.findById(id);
+        if (data == null || !data.isPresent()) {
+            return false;
+        } else {
+            sampleData = data.get();
+        }
+        sampleData.setName(name);
+        sampleData.setDetail(detail);
+        return sampleDao.save(sampleData) != null;
+    }
 
-	@Override
-	public Boolean delete(long id) {
-		sampleDao.deleteById(id);
-		return true;
-	}
+    @Override
+    public Boolean delete(long id) {
+        sampleDao.deleteById(id);
+        return true;
+    }
 
-	@Override
-	public List<SampleData> getSamples() {
-		return sampleDao.findAll();
-	}
+    @Override
+    public List<SampleData> getSamples() {
+        return sampleDao.findAll();
+    }
 }

@@ -25,13 +25,10 @@ swagger:
 
 ---
 spring:
-  profile: dev
+  profiles: dev
   data:
     mongodb:
-      host: db
-      port: 27017
-      username: test
-      password: test
+      uri: mongodb://test:test@db:27017/?authSource=admin&authMechanism=SCRAM-SHA-1
       database: doploy
 
 server:

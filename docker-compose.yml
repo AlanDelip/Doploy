@@ -20,6 +20,9 @@ services:
   db:
     image: mongo
     restart: on-failure
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: test
     volumes:
       - mongo-data:/data/db
 

@@ -1,27 +1,26 @@
 package cn.alandelip.entity;
 
 import lombok.Data;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
  * @author Alan on 2017/3/14
  */
 @Data
-@Entity
-@Table(name = "data")
 public class SampleData {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @NotNull
+    private ObjectId _id;
 
-	@NotNull
-	@Column(name = "name")
-	private String name;
+    @Id
+    private long id;
 
-	@NotNull
-	@Column(name = "detail")
-	private String detail;
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String detail;
 
 }
