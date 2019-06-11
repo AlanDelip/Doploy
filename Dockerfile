@@ -1,9 +1,7 @@
-FROM python:3.7
-
-EXPOSE 5000
+FROM node:10
 
 WORKDIR /home/app
 
-RUN pip install flask mysql-connector
+EXPOSE 4000
 
-CMD python app/app.py
+CMD ["sh","-c","npm install && node server.js"]

@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/home/app
     ports:
-      - 5000:5000
+      - 4000:4000
     depends_on:
       - db
 
@@ -17,7 +17,7 @@ services:
     environment:
       MYSQL_USER: test
       MYSQL_PASSWORD: test
-      MYSQL_DATABASE: userdb
+      MYSQL_DATABASE: doploy
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - type: volume

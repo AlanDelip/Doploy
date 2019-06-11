@@ -1,4 +1,4 @@
-use userdb;
+use doploy;
 
 CREATE TABLE IF NOT EXISTS students (
   name VARCHAR(20),
@@ -10,5 +10,5 @@ VALUES
   ('John Doe', 'Los Angeles'),
   ('Denis', 'New York');
 
-GRANT ALL PRIVILEGES ON userdb.* TO 'test'@'%';
+GRANT ALL PRIVILEGES ON doploy.* TO 'test'@'%';
 FLUSH PRIVILEGES;
