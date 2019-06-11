@@ -23,7 +23,7 @@ services:
         source: pg-data
         target: /var/lib/postgresql/data
       - type: bind
-        source: ./
+        source: ./db
         target: /docker-entrypoint-initdb.d/
 
 volumes:
