@@ -22,40 +22,43 @@ import java.util.List;
 @Service
 @Log4j2
 public class GeneratorLogicImpl implements GeneratorLogic {
-	private Configuration cfg;
+    private Configuration cfg;
 
-	@Autowired
-	public GeneratorLogicImpl() {
-		try {
-			cfg = new Configuration(Configuration.VERSION_2_3_27);
-			cfg.setDirectoryForTemplateLoading(new File("src/main/resources/templates"));
-			cfg.setDefaultEncoding("UTF-8");
-			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-			cfg.setLogTemplateExceptions(false);
-			cfg.setWrapUncheckedExceptions(true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    @Autowired
+    public GeneratorLogicImpl() {
+        try {
+            cfg = new Configuration(Configuration.VERSION_2_3_27);
+            cfg.setDirectoryForTemplateLoading(new File("src/main/resources/templates"));
+            cfg.setDefaultEncoding("UTF-8");
+            cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+            cfg.setLogTemplateExceptions(false);
+            cfg.setWrapUncheckedExceptions(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public List<TemplateVO> generateTemplate(ConfigurationVO configuration) {
-		TemplateLogic templateLogic;
+    @Override
+    public List<TemplateVO> generateTemplate(ConfigurationVO configuration) {
+        TemplateLogic templateLogic;
 
-		switch (GeneratorData.Type.valueOf(configuration.getType().toUpperCase())) {
-			case FLASK_POSTGRESQL:
-				templateLogic = new FlaskPostgreTemplate();
-				break;
-			case EXPRESS_MONGODB:
-				templateLogic = new ExpressMongoTemplate();
-				break;
-			case SPRINGBOOT_MYSQL:
-				templateLogic = new SpringMysqlTemplate();
-				break;
-			default:
-				throw new NotFoundException("template not found");
-		}
+        switch (GeneratorData.Type.valueOf(configuration.getType().toUpperCase())) {
+            case FLASK_POSTGRESQL:
+                templateLogic = new FlaskPostgreTemplate();
+                break;
+            case EXPRESS_POSTGRESQL:
+                templateLogic = new ExpressPostgreTemplate();
+                break;
+            case EXPRESS_MONGODB:
+                templateLogic = new ExpressMongoTemplate();
+                break;
+            case SPRINGBOOT_MYSQL:
+                templateLogic = new SpringMysqlTemplate();
+                break;
+            default:
+                throw new NotFoundException("template not found");
+        }
 
-		return templateLogic.generateTemplate(configuration, cfg);
-	}
+        return templateLogic.generateTemplate(configuration, cfg);
+    }
 }
