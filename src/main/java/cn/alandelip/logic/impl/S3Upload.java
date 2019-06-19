@@ -25,40 +25,40 @@ import java.util.Map;
  * @author Alan.Zhufeng Xu, 4/18/2019.
  */
 public class S3Upload {
-	private final static String BUCKET_NAME = "doploy";
+    private final static String BUCKET_NAME = "doploy";
 
-	public static String upload(Map<String, String> root, Template tmpl, String key) {
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		Writer out = new OutputStreamWriter(bout);
-		try {
-			tmpl.process(root, out);
-		} catch (TemplateException | IOException e) {
-			e.printStackTrace();
-		}
+    public static String upload(Map<String, String> root, Template tmpl, String key) {
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        Writer out = new OutputStreamWriter(bout);
+        try {
+            tmpl.process(root, out);
+        } catch (TemplateException | IOException e) {
+            e.printStackTrace();
+        }
 
-		S3PresignExecutionInterceptor presignInterceptor = new S3PresignExecutionInterceptor(Region.US_EAST_2, Duration.ofDays(1));
-		S3Client s3Client = S3Client.builder()
-				.credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-				.overrideConfiguration(ClientOverrideConfiguration.builder().addExecutionInterceptor(presignInterceptor).build())
-				.region(Region.US_EAST_2)
-				.build();
-		PutObjectRequest req = PutObjectRequest.builder().bucket(BUCKET_NAME).key(key).build();
-		s3Client.putObject(req, RequestBody.fromBytes(bout.toByteArray()));
+        S3PresignExecutionInterceptor presignInterceptor = new S3PresignExecutionInterceptor(Region.US_EAST_2, Duration.ofDays(1));
+        S3Client s3Client = S3Client.builder()
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .overrideConfiguration(ClientOverrideConfiguration.builder().addExecutionInterceptor(presignInterceptor).build())
+                .region(Region.US_EAST_2)
+                .build();
+        PutObjectRequest req = PutObjectRequest.builder().bucket(BUCKET_NAME).key(key).build();
+        s3Client.putObject(req, RequestBody.fromBytes(bout.toByteArray()));
 
-		GetObjectRequest s3GetRequest = GetObjectRequest.builder().bucket(BUCKET_NAME).key(key).build();
-		ResponseInputStream<GetObjectResponse> response = s3Client.getObject(s3GetRequest);
-		try {
-			response.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        GetObjectRequest s3GetRequest = GetObjectRequest.builder().bucket(BUCKET_NAME).key(key).build();
+        ResponseInputStream<GetObjectResponse> response = s3Client.getObject(s3GetRequest);
+        try {
+            response.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		try {
-			return presignInterceptor.getSignedURI().toURL().toString();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+        try {
+            return presignInterceptor.getSignedURI().toURL().toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

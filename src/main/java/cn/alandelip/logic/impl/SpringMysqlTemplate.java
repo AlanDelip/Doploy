@@ -13,45 +13,37 @@ import java.util.*;
 /**
  * @author Alan.Zhufeng Xu, 4/20/2019.
  */
-public class SpringMysqlTemplate implements TemplateLogic {
-	private static final String TEMPLATE_BASE = "springboot-mysql";
+public class SpringMysqlTemplate extends TemplateLogic {
+    private static final String TEMPLATE_BASE = "springboot-mysql";
 
-	@Override
-	public List<TemplateVO> generateTemplate(ConfigurationVO configuration, Configuration cfg) {
-		List<TemplateVO> templates = new ArrayList<>();
-		long signedTimestamp = new Date().getTime();
-		try {
-			Template dfTmpl = cfg.getTemplate(TEMPLATE_BASE + "/dockerfile-tmpl.ftlh");
-			Map<String, String> dfRoot = new HashMap<>();
-			dfRoot.put("artifactid", configuration.getArtifactId());
-			dfRoot.put("version", configuration.getVersion());
-			String key = signedTimestamp + "/Dockerfile";
 
-			String envUrl = S3Upload.upload(dfRoot, dfTmpl, key);
-			templates.add(new TemplateVO(envUrl, "Dockerfile"));
+    @Override
+    protected Template loadTemplate(Configuration cfg, String name) {
+        try {
+            return cfg.getTemplate(TEMPLATE_BASE + name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-		} catch (IOException | SdkClientException e) {
-			e.printStackTrace();
-		}
+    @Override
+    protected Map<String, String> loadDFConfig(ConfigurationVO configuration) {
+        Map<String, String> dfRoot = new HashMap<>();
+        dfRoot.put("artifactid", configuration.getArtifactId());
+        dfRoot.put("version", configuration.getVersion());
+        return dfRoot;
+    }
 
-		try {
-			Template composeTmpl = cfg.getTemplate(TEMPLATE_BASE + "/compose-tmpl.ftlh");
-			Map<String, String> composeRoot = new HashMap<>();
-			composeRoot.put("dbname", configuration.getDbname());
-			composeRoot.put("dbuser", configuration.getDbuser());
-			composeRoot.put("dbpass", configuration.getDbpassword());
-			composeRoot.put("dbrootpass", configuration.getDbrootpass());
-			composeRoot.put("dbport", configuration.getDbport());
-			composeRoot.put("port", configuration.getPort());
-			String key = signedTimestamp + "/docker-compose.yml";
-
-			String envUrl = S3Upload.upload(composeRoot, composeTmpl, key);
-			templates.add(new TemplateVO(envUrl, "docker-compose"));
-
-		} catch (IOException | SdkClientException e) {
-			e.printStackTrace();
-		}
-
-		return templates;
-	}
+    @Override
+    protected Map<String, String> loadDCConfig(ConfigurationVO configuration) {
+        Map<String, String> composeRoot = new HashMap<>();
+        composeRoot.put("dbname", configuration.getDbname());
+        composeRoot.put("dbuser", configuration.getDbuser());
+        composeRoot.put("dbpass", configuration.getDbpassword());
+        composeRoot.put("dbrootpass", configuration.getDbrootpass());
+        composeRoot.put("dbport", configuration.getDbport());
+        composeRoot.put("port", configuration.getPort());
+        return composeRoot;
+    }
 }

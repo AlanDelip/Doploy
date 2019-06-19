@@ -15,9 +15,9 @@ services:
         target: /home/app
 <#if dbname??>
     depends_on:
-      - localhost
+      - ${dbhost}
 
-  localhost:
+  ${dbhost}:
     image: mysql
     environment:
       MYSQL_DATABASE: ${dbname}

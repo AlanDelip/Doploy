@@ -2,57 +2,47 @@ package cn.alandelip.logic.impl;
 
 import cn.alandelip.logic.TemplateLogic;
 import cn.alandelip.web.model.ConfigurationVO;
-import cn.alandelip.web.model.TemplateVO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import software.amazon.awssdk.core.exception.SdkClientException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Alan.Zhufeng Xu, 4/18/2019.
  */
-public class FlaskPostgreTemplate implements TemplateLogic {
-	private static final String TEMPLATE_BASE = "flask-postgresql";
+public class FlaskPostgreTemplate extends TemplateLogic {
+    private static final String TEMPLATE_BASE = "flask-postgresql";
 
-	@Override
-	public List<TemplateVO> generateTemplate(ConfigurationVO configuration, Configuration cfg) {
-		List<TemplateVO> templates = new ArrayList<>();
-		long signedTimestamp = new Date().getTime();
-		try {
-			Template dfTmpl = cfg.getTemplate(TEMPLATE_BASE + "/dockerfile-tmpl.ftlh");
-			Map<String, String> dfRoot = new HashMap<>();
-			dfRoot.put("port", configuration.getPort());
-			dfRoot.put("entry", configuration.getEntry());
-			dfRoot.put("dependencies", configuration.getDependencies());
-			String key = signedTimestamp + "/Dockerfile";
+    @Override
+    protected Template loadTemplate(Configuration cfg, String name) {
+        try {
+            return cfg.getTemplate(TEMPLATE_BASE + name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-			String envUrl = S3Upload.upload(dfRoot, dfTmpl, key);
-			templates.add(new TemplateVO(envUrl, "Dockerfile"));
+    @Override
+    protected Map<String, String> loadDFConfig(ConfigurationVO configuration) {
+        Map<String, String> dfRoot = new HashMap<>();
+        dfRoot.put("port", configuration.getPort());
+        dfRoot.put("entry", configuration.getEntry());
+        dfRoot.put("dependencies", configuration.getDependencies());
+        return dfRoot;
+    }
 
-		} catch (IOException | SdkClientException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			Template composeTmpl = cfg.getTemplate(TEMPLATE_BASE + "/compose-tmpl.ftlh");
-			Map<String, String> composeRoot = new HashMap<>();
-			composeRoot.put("dbname", configuration.getDbname());
-			composeRoot.put("dbuser", configuration.getDbuser());
-			composeRoot.put("dbpass", configuration.getDbpassword());
-			composeRoot.put("dbport", configuration.getDbport());
-			composeRoot.put("port", configuration.getPort());
-			composeRoot.put("dbhost", configuration.getDbhost());
-			String key = signedTimestamp + "/docker-compose.yml";
-
-			String envUrl = S3Upload.upload(composeRoot, composeTmpl, key);
-			templates.add(new TemplateVO(envUrl, "docker-compose"));
-
-		} catch (IOException | SdkClientException e) {
-			e.printStackTrace();
-		}
-
-		return templates;
-	}
+    @Override
+    protected Map<String, String> loadDCConfig(ConfigurationVO configuration) {
+        Map<String, String> composeRoot = new HashMap<>();
+        composeRoot.put("dbname", configuration.getDbname());
+        composeRoot.put("dbuser", configuration.getDbuser());
+        composeRoot.put("dbpass", configuration.getDbpassword());
+        composeRoot.put("dbport", configuration.getDbport());
+        composeRoot.put("port", configuration.getPort());
+        composeRoot.put("dbhost", configuration.getDbhost());
+        return composeRoot;
+    }
 }

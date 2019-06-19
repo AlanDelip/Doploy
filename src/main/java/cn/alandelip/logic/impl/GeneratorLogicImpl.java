@@ -46,14 +46,29 @@ public class GeneratorLogicImpl implements GeneratorLogic {
             case FLASK_POSTGRESQL:
                 templateLogic = new FlaskPostgreTemplate();
                 break;
+            case FLASK_MONGODB:
+                templateLogic = new FlaskMongoTemplate();
+                break;
+            case FLASK_MYSQL:
+                templateLogic = new FlaskMysqlTemplate();
+                break;
             case EXPRESS_POSTGRESQL:
                 templateLogic = new ExpressPostgreTemplate();
                 break;
             case EXPRESS_MONGODB:
                 templateLogic = new ExpressMongoTemplate();
                 break;
+            case EXPRESS_MYSQL:
+                templateLogic = new ExpressMysqlTemplate();
+                break;
             case SPRINGBOOT_MYSQL:
                 templateLogic = new SpringMysqlTemplate();
+                break;
+            case SPRINGBOOT_MONGODB:
+                templateLogic = new SpringMongoTemplate();
+                break;
+            case SPRINGBOOT_POSTGRESQL:
+                templateLogic = new SpringPostgreTemplate();
                 break;
             default:
                 throw new NotFoundException("template not found");
