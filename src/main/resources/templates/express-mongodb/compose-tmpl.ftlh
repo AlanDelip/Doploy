@@ -10,9 +10,9 @@ services:
       - ./:/home/app
 <#if dbname??>
     depends_on:
-      - localhost
+      - ${dbhost}
 
-  localhost:
+  ${dbhost}:
     image: mongo
     restart: on-failure
     volumes:

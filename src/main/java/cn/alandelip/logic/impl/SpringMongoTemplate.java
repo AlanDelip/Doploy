@@ -6,10 +6,11 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SpringMongoTemplate extends TemplateLogic {
-    private static final String TEMPLATE_BASE = "spring-mongodb";
+    private static final String TEMPLATE_BASE = "springboot-mongodb";
 
     @Override
     protected Template loadTemplate(Configuration cfg, String name) {
@@ -23,11 +24,21 @@ public class SpringMongoTemplate extends TemplateLogic {
 
     @Override
     protected Map<String, String> loadDFConfig(ConfigurationVO configuration) {
-        return null;
+        Map<String, String> dfRoot = new HashMap<>();
+        dfRoot.put("artifactid", configuration.getArtifactId());
+        dfRoot.put("version", configuration.getVersion());
+        return dfRoot;
     }
 
     @Override
     protected Map<String, String> loadDCConfig(ConfigurationVO configuration) {
-        return null;
+        Map<String, String> composeRoot = new HashMap<>();
+        composeRoot.put("port", configuration.getPort());
+        composeRoot.put("dbname", configuration.getDbname());
+        composeRoot.put("dbhost", configuration.getDbhost());
+        composeRoot.put("dbuser", configuration.getDbuser());
+        composeRoot.put("dbpass", configuration.getDbpassword());
+        composeRoot.put("dbport", configuration.getDbport());
+        return composeRoot;
     }
 }

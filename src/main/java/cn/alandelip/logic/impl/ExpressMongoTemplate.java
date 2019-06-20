@@ -38,6 +38,7 @@ public class ExpressMongoTemplate extends TemplateLogic {
     protected Map<String, String> loadDCConfig(ConfigurationVO configuration) {
         Map<String, String> composeRoot = new HashMap<>();
         composeRoot.put("dbname", configuration.getDbname());
+        composeRoot.put("dbhost",configuration.getDbhost());
         composeRoot.put("dbport", configuration.getDbport());
         composeRoot.put("port", configuration.getPort());
         return composeRoot;

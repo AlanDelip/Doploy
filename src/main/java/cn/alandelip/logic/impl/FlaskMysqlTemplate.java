@@ -42,6 +42,7 @@ public class FlaskMysqlTemplate extends TemplateLogic {
         composeRoot.put("dbport", configuration.getDbport());
         composeRoot.put("dbhost", configuration.getDbhost());
         composeRoot.put("port", configuration.getPort());
+        composeRoot.put("dbinitentry",configuration.getDbinitentry());
         return composeRoot;
     }
 }
