@@ -43,6 +43,7 @@ public class SpringMysqlTemplate extends TemplateLogic {
         composeRoot.put("dbpass", configuration.getDbpassword());
         composeRoot.put("dbrootpass", configuration.getDbrootpass());
         composeRoot.put("dbport", configuration.getDbport());
+        composeRoot.put("dbhost", configuration.getDbhost());
         composeRoot.put("port", configuration.getPort());
         return composeRoot;
     }

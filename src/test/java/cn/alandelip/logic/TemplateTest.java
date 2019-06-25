@@ -1,9 +1,6 @@
 package cn.alandelip.logic;
 
-import cn.alandelip.logic.impl.ExpressMongoTemplate;
-import cn.alandelip.logic.impl.ExpressPostgreTemplate;
-import cn.alandelip.logic.impl.FlaskPostgreTemplate;
-import cn.alandelip.logic.impl.SpringMysqlTemplate;
+import cn.alandelip.logic.impl.*;
 import cn.alandelip.web.model.ConfigurationVO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -71,6 +68,28 @@ public class TemplateTest {
     }
 
     @Test
+    public void testFlaskMysql() {
+        TemplateLogic template = new FlaskMysqlTemplate();
+
+        generateTmpl(
+                template.loadTemplate(cfg, dfPath),
+                template.loadTemplate(cfg, dcPath),
+                template.loadDFConfig(configuration),
+                template.loadDCConfig(configuration));
+    }
+
+    @Test
+    public void testFlaskMongo() {
+        TemplateLogic template = new FlaskMongoTemplate();
+
+        generateTmpl(
+                template.loadTemplate(cfg, dfPath),
+                template.loadTemplate(cfg, dcPath),
+                template.loadDFConfig(configuration),
+                template.loadDCConfig(configuration));
+    }
+
+    @Test
     public void testExpressPostgre() {
         TemplateLogic template = new ExpressPostgreTemplate();
 
@@ -80,6 +99,17 @@ public class TemplateTest {
                 template.loadDFConfig(configuration),
                 template.loadDCConfig(configuration));
 
+    }
+
+    @Test
+    public void testExpressMysql() {
+        TemplateLogic template = new ExpressMysqlTemplate();
+
+        generateTmpl(
+                template.loadTemplate(cfg, dfPath),
+                template.loadTemplate(cfg, dcPath),
+                template.loadDFConfig(configuration),
+                template.loadDCConfig(configuration));
     }
 
     @Test
@@ -94,8 +124,30 @@ public class TemplateTest {
     }
 
     @Test
+    public void testSpringPostgre() {
+        TemplateLogic template = new SpringPostgreTemplate();
+
+        generateTmpl(
+                template.loadTemplate(cfg, dfPath),
+                template.loadTemplate(cfg, dcPath),
+                template.loadDFConfig(configuration),
+                template.loadDCConfig(configuration));
+    }
+
+    @Test
     public void testSpringMySQL() {
         TemplateLogic template = new SpringMysqlTemplate();
+
+        generateTmpl(
+                template.loadTemplate(cfg, dfPath),
+                template.loadTemplate(cfg, dcPath),
+                template.loadDFConfig(configuration),
+                template.loadDCConfig(configuration));
+    }
+
+    @Test
+    public void testSpringMongo() {
+        TemplateLogic template = new SpringMongoTemplate();
 
         generateTmpl(
                 template.loadTemplate(cfg, dfPath),
